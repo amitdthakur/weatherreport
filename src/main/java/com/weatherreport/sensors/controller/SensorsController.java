@@ -46,18 +46,18 @@ public class SensorsController {
 
 
   @PostMapping("v1/sensors/metadata")
-  public ResponseEntity<String> addSensorsMetadata(@RequestBody SensorMetadata sensorMetadata)
+  public ResponseEntity<SensorMetadata> addSensorsMetadata(@RequestBody SensorMetadata sensorMetadata)
       throws SensorAlreadyExistsException {
     sensorService.addSensorsMetadata(sensorMetadata);
-    return new ResponseEntity<>("SensorCreated", HttpStatus.CREATED);
+    return new ResponseEntity<>(sensorMetadata, HttpStatus.CREATED);
   }
 
 
   @PostMapping("v1/sensors/metrics")
-  public ResponseEntity<String> addSensorsMetrics(@RequestBody SensorMetrics sensorMetrics)
+  public ResponseEntity<SensorMetrics> addSensorsMetrics(@RequestBody SensorMetrics sensorMetrics)
       throws SensorDoesNotExistsException {
     sensorService.addSensorsMetrics(sensorMetrics);
-    return new ResponseEntity<>("MetricsCreated", HttpStatus.CREATED);
+    return new ResponseEntity<>(sensorMetrics, HttpStatus.CREATED);
   }
 
   @GetMapping("v1/sensors/metrics")

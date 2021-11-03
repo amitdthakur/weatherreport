@@ -6,7 +6,7 @@ public interface SensorQuery {
 
   String SELECT_ALL_SENSOR_META_DATA = "select sensorid,countryname,cityname,created from sensormetadata order by created desc";
 
-  String SELECT_SENSOR_META_DATA_FROM_SENSOR_ID = "select sensorid,countryname,cityname from sensorMetaData where sensorId = :sensorId";
+  String SELECT_SENSOR_META_DATA_FROM_SENSOR_ID = "select sensorid,countryname,cityname,created from sensorMetaData where sensorId = :sensorId";
   
   String INSERT_SENSOR_METRICS =
       "INSERT INTO sensorMetrics(sensorId,temperature,humidity,windSpeed,pressure,lastUpdated) "
