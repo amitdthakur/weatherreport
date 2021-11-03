@@ -7,8 +7,10 @@ Weather report service developed in the spring boot with mysql database in kuber
 * Prerequisite
 * Build and steps to run application on local.
 * Docker and Kubernetes commands
+* Known exceptions and resolutions
 * Deployment steps on minikube
 * Delete deployment, service, secret
+* Next steps
 
 ## Prerequisite
 
@@ -22,13 +24,24 @@ Weather report service developed in the spring boot with mysql database in kuber
 Commands to build and run project on local.
 
 1. Clone the project from the github.
-2. Install mySql,run dataBaseScripts.sql file and add correct values of url,userName and password in application.yml.
+2. Install MySql,run dataBaseScripts.sql file and add correct values of url,userName and password in application.yml.
 3. Run mvn clean install command this will resolve all the dependencies issue.
 
 ##  Docker and Kubernetes commands
 
 1. Run mvn clean install and build docker image docker image build -t docker image build -t amitdthakur09/weatherreport . to build docker image.
 2. Push docker image to docker repo with docker push amitdthakur09/weatherreport:0.0.1
+
+## Known exceptions and resolutions
+
+| Exception | Status Code       | Reason | Resolution |
+| ----------- | ----------- | ----------- |----------- |
+| DateOlderThan30DaysException | 400 | Start date is older than current day by 30 days| Start date should never be smaller than current date by 30 days. |
+| SensorAlreadyExistsException |400 | If user uses same sensor id for sensor registration | Change the sensor id|
+| SensorDoesNotExistsException | 400 | If user trying to enter metrics without registering sensor | First register the sensor then add metrics|
+| DataAccessException | 500 | Something went incorrect in the database | Check the loggers for the exact reason|
+| RuntimeException | 500 | Generic exception | Check the loggers for the exact reason|
+
 
 ## Deployment steps on minikube
 
@@ -201,6 +214,16 @@ Response should be (201 status code):
 ## Delete deployment, service, secret
 
 ```sh
-kubectl delete -f deployment/mysql-deployment.yaml
-kubectl delete -f deployment/secrets.yaml
+kubectl delete deployment deployMentName
+kubectl delete service serviceName
 ```
+
+## Next steps:
+
+Improvements
+
+1. AOP can be added for loggers.
+2. Validation on request body fields.
+3. Spring security.
+4. BDD test cases.
+5. Junit coverage improvement current coverage is 25% calculated by running mvn clean test
