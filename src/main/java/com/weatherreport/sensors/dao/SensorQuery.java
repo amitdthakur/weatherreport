@@ -4,7 +4,7 @@ public interface SensorQuery {
 
   String INSERT_SENSOR_META_DATA = "INSERT INTO sensorMetaData (sensorId, countryName, cityName,created) VALUES (:sensorId, :countryName, :cityName, CURRENT_TIMESTAMP)";
 
-  String SELECT_ALL_SENSOR_META_DATA = "select sensorid,countryname,cityname,created from sensormetadata order by created desc";
+  String SELECT_ALL_SENSOR_META_DATA = "select sensorid,countryname,cityname,created from sensorMetaData order by created desc";
 
   String SELECT_SENSOR_META_DATA_FROM_SENSOR_ID = "select sensorid,countryname,cityname,created from sensorMetaData where sensorId = :sensorId";
   
