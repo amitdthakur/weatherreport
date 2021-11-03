@@ -13,15 +13,11 @@ import com.weatherreport.sensors.model.SensorMetrics;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SensorServiceImpl implements SensorService {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(SensorServiceImpl.class);
 
   private final SensorDao sensorDao;
 
@@ -47,12 +43,12 @@ public class SensorServiceImpl implements SensorService {
 
   @Override
   public void addSensorsMetrics(SensorMetrics sensorMetrics) throws SensorDoesNotExistsException {
-    //Check if given sensor exists or not if not then throws exception.
     if (getAllSensorMetadataByFilter(sensorMetrics.getId()).getSensors().isEmpty()) {
       throw new SensorDoesNotExistsException(
-          "GIVEN_" + sensorMetrics.getId() + "SENSOR_ID_DOES_NOT_EXISTS");
+          "GIVEN_SENSOR_ID" + sensorMetrics.getId() + "_DOES_NOT_EXISTS");
+    } else {
+      sensorDao.addSensorsMetrics(sensorMetrics);
     }
-    sensorDao.addSensorsMetrics(sensorMetrics);
   }
 
   @Override

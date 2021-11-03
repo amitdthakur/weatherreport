@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class SensorDoesNotExistsExceptionHandler extends ResponseEntityExceptionHandler {
 
   private static final Logger LOGGER = LoggerFactory
-      .getLogger(SensorAlreadyExistsException.class);
+      .getLogger(SensorDoesNotExistsExceptionHandler.class);
 
   @ExceptionHandler(SensorDoesNotExistsException.class)
   public ResponseEntity<ExceptionMessage> handleSensorDoesNotExistsException(

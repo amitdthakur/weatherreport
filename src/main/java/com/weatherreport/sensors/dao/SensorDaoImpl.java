@@ -1,5 +1,6 @@
 package com.weatherreport.sensors.dao;
 
+import static com.weatherreport.sensors.constant.Constants.ALL;
 import static com.weatherreport.sensors.constant.Constants.YYYY_MM_DD;
 import static com.weatherreport.sensors.util.TimeUtil.returnDateInGivenFormat;
 
@@ -12,8 +13,6 @@ import com.weatherreport.sensors.model.SensorMetrics;
 import com.weatherreport.sensors.model.SensorMetricsAvg;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -23,9 +22,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SensorDaoImpl implements SensorDao, SensorQuery {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(SensorDaoImpl.class);
-  public static final String ALL = "ALL";
 
   private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -110,7 +106,8 @@ public class SensorDaoImpl implements SensorDao, SensorQuery {
     List<SensorMetricsAvg> sensorMetricsAvgList;
     if (sensorIds.size() == 1 && ALL.equalsIgnoreCase(sensorIds.get(0))) {
       sensorMetricsAvgList = namedParameterJdbcTemplate
-          .query(SELECT_ALL_SENSOR_ID_LAST_UPDATED_BY_SENSOR_ID, RowMapper::mapSensorMetricsAvgIfNoDateProvided);
+          .query(SELECT_ALL_SENSOR_ID_LAST_UPDATED_BY_SENSOR_ID,
+              RowMapper::mapSensorMetricsAvgIfNoDateProvided);
     } else {
       sensorMetricsAvgList = namedParameterJdbcTemplate.query(
           SELECT_SENSOR_ID_LAST_UPDATED_BY_SENSOR_IDS, sqlParameterSource,
