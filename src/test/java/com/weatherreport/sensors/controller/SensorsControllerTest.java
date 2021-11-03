@@ -2,7 +2,6 @@ package com.weatherreport.sensors.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.weatherreport.sensors.controller.SensorsController;
 import com.weatherreport.sensors.model.SensorMetadatas;
 import com.weatherreport.sensors.service.SensorService;
 import org.junit.jupiter.api.Test;
@@ -28,7 +27,8 @@ class SensorsControllerTest {
 
 
   @Test
-  void getAllSensorsMetadata_success() throws Exception {
+  void getAllSensorsMetadata_IfServiceReturnsValidResult_ThenResponseCodeShouldBe200()
+      throws Exception {
     SensorMetadatas sensorMetadatas = new SensorMetadatas();
     Mockito.when(sensorService.getAllSensorsMetadata()).thenReturn(sensorMetadatas);
     mockMvc.perform(MockMvcRequestBuilders
