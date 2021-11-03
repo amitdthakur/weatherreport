@@ -1,5 +1,6 @@
 package com.weatherreport.sensors.controller;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.weatherreport.sensors.model.AverageWeatherReport;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,7 +34,7 @@ class SensorsControllerTest {
   void getAllSensorsMetadata_IfServiceReturnsValidResult_ThenResponseCodeShouldBe200()
       throws Exception {
     SensorMetadatas sensorMetadatas = new SensorMetadatas();
-    Mockito.when(sensorService.getAllSensorsMetadata()).thenReturn(sensorMetadatas);
+    when(sensorService.getAllSensorsMetadata()).thenReturn(sensorMetadatas);
     mockMvc.perform(MockMvcRequestBuilders
         .get("/v1/sensors/metadata")
         .contentType(MediaType.APPLICATION_JSON))
@@ -47,7 +47,7 @@ class SensorsControllerTest {
     AverageWeatherReport averageWeatherReport = new AverageWeatherReport();
     List<String> sensorIds = new ArrayList<>();
     sensorIds.add("ALL");
-    Mockito.when(sensorService.getSensorMetrics(sensorIds, null, null))
+    when(sensorService.getSensorMetrics(sensorIds, null, null))
         .thenReturn(averageWeatherReport);
     mockMvc.perform(MockMvcRequestBuilders
         .get("/v1/sensors/metrics")
@@ -64,7 +64,7 @@ class SensorsControllerTest {
     sensorIds.add("ALL");
     LocalDate startDate = LocalDate.of(2021, 9, 30);
     LocalDate endDate = LocalDate.now();
-    Mockito.when(sensorService.getSensorMetrics(sensorIds, startDate, endDate))
+    when(sensorService.getSensorMetrics(sensorIds, startDate, endDate))
         .thenReturn(averageWeatherReport);
     mockMvc.perform(MockMvcRequestBuilders
         .get("/v1/sensors/metrics")
