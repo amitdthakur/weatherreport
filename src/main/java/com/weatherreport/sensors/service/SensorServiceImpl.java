@@ -45,7 +45,7 @@ public class SensorServiceImpl implements SensorService {
   public void addSensorsMetrics(SensorMetrics sensorMetrics) throws SensorDoesNotExistsException {
     if (getAllSensorMetadataByFilter(sensorMetrics.getId()).getSensors().isEmpty()) {
       throw new SensorDoesNotExistsException(
-          "GIVEN_SENSOR_ID" + sensorMetrics.getId() + "_DOES_NOT_EXISTS");
+          "GIVEN_SENSOR_ID_" + sensorMetrics.getId() + "_DOES_NOT_EXISTS");
     } else {
       sensorDao.addSensorsMetrics(sensorMetrics);
     }
