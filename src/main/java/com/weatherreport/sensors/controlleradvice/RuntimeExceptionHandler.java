@@ -20,6 +20,7 @@ public class RuntimeExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionMessage exceptionMessage = new ExceptionMessage();
     exceptionMessage.setMessage(HttpStatus.INTERNAL_SERVER_ERROR.name());
     exceptionMessage.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    exceptionMessage.setShortMessage(exceptionMessage.getMessage());
     LOGGER.error("RuntimeException occurred ", exception);
     return ResponseEntity
         .status(HttpStatus.INTERNAL_SERVER_ERROR)

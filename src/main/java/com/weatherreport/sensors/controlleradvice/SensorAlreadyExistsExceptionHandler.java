@@ -1,6 +1,5 @@
 package com.weatherreport.sensors.controlleradvice;
 
-import com.weatherreport.sensors.exception.DateOlderThan30DaysException;
 import com.weatherreport.sensors.exception.SensorAlreadyExistsException;
 import com.weatherreport.sensors.model.ExceptionMessage;
 import org.slf4j.Logger;
@@ -15,18 +14,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class SensorAlreadyExistsExceptionHandler extends ResponseEntityExceptionHandler {
 
   private static final Logger LOGGER = LoggerFactory
-      .getLogger(SensorAlreadyExistsException.class);
+      .getLogger(SensorAlreadyExistsExceptionHandler.class);
 
   @ExceptionHandler(SensorAlreadyExistsException.class)
   public ResponseEntity<ExceptionMessage> handleSensorExistsException(
       SensorAlreadyExistsException exception) {
     ExceptionMessage exceptionMessage = new ExceptionMessage();
-    exceptionMessage.setMessage(HttpStatus.INTERNAL_SERVER_ERROR.name());
-    exceptionMessage.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    exceptionMessage.setMessage(HttpStatus.BAD_REQUEST.name());
+    exceptionMessage.setStatusCode(HttpStatus.BAD_REQUEST.value());
     exceptionMessage.setShortMessage(exception.getMessage());
-    LOGGER.error("handleSensorExistsException occurred ", exception);
+    LOGGER.error("SensorAlreadyExistsException occurred ", exception);
     return ResponseEntity
-        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .status(HttpStatus.BAD_REQUEST)
         .body(exceptionMessage);
   }
 }
