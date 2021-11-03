@@ -2,8 +2,12 @@ package com.weatherreport.sensors.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.weatherreport.sensors.model.AverageWeatherReport;
 import com.weatherreport.sensors.model.SensorMetadatas;
 import com.weatherreport.sensors.service.SensorService;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -37,5 +41,37 @@ class SensorsControllerTest {
         .andExpect(status().isOk());
   }
 
+  @Test
+  void getSensorMetrics_IfSensorIdsIsALLAndMockedFunction_Then200OkShouldReturned()
+      throws Exception {
+    AverageWeatherReport averageWeatherReport = new AverageWeatherReport();
+    List<String> sensorIds = new ArrayList<>();
+    sensorIds.add("ALL");
+    Mockito.when(sensorService.getSensorMetrics(sensorIds, null, null))
+        .thenReturn(averageWeatherReport);
+    mockMvc.perform(MockMvcRequestBuilders
+        .get("/v1/sensors/metrics")
+        .param("sensorIds", "ALL")
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void getSensorMetrics_IfSensorIdsIsALLStartDateIsLessThan30DaysAndMockedFunction_Then400BadRequestShouldReturned()
+      throws Exception {
+    AverageWeatherReport averageWeatherReport = new AverageWeatherReport();
+    List<String> sensorIds = new ArrayList<>();
+    sensorIds.add("ALL");
+    LocalDate startDate = LocalDate.of(2021, 9, 30);
+    LocalDate endDate = LocalDate.now();
+    Mockito.when(sensorService.getSensorMetrics(sensorIds, startDate, endDate))
+        .thenReturn(averageWeatherReport);
+    mockMvc.perform(MockMvcRequestBuilders
+        .get("/v1/sensors/metrics")
+        .param("sensorIds", "ALL")
+        .param("startDate", "2021-09-30")
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest());
+  }
 
 }

@@ -63,8 +63,8 @@ public class SensorsController {
   @GetMapping("v1/sensors/metrics")
   public AverageWeatherReport getSensorMetrics(
       @RequestParam(defaultValue = "ALL") List<String> sensorIds,
-      @RequestParam(required = false) @DateTimeFormat(pattern = YYYY_MM_DD) LocalDate endDate,
-      @RequestParam(required = false) @DateTimeFormat(pattern = YYYY_MM_DD) LocalDate startDate)
+      @RequestParam(required = false) @DateTimeFormat(pattern = YYYY_MM_DD) LocalDate startDate,
+      @RequestParam(required = false) @DateTimeFormat(pattern = YYYY_MM_DD) LocalDate endDate)
       throws DateOlderThan30DaysException {
     LocalDate currentDate = LocalDate.now();
     if (checkIfStartDateIsNotOlderThan30Days(currentDate, startDate)) {
