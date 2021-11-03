@@ -5,6 +5,7 @@ Weather report service developed in the spring boot with mysql database in kuber
 ## CONTENTS OF THIS FILE
 
 * Prerequisite
+* Repositories
 * Build and steps to run application on local.
 * Docker and Kubernetes commands
 * Known exceptions and resolutions
@@ -18,6 +19,13 @@ Weather report service developed in the spring boot with mysql database in kuber
 - Kubernetes command-line tool(kubectl)
 - Java 8
 - Maven
+
+## Repositories
+
+| Repository Name | Usage      | 
+| ----------- | ----------- | 
+| https://github.com/amitdthakur/weatherreport.git | GitHub(SCM) | 
+| https://hub.docker.com/repository/docker/amitdthakur09/weatherreport |DockerHub(ImageStorage) | 
 
 ## Build and steps to run application on local
 
